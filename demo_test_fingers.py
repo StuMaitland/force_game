@@ -14,6 +14,8 @@ import random
 import csv
 from datetime import datetime
 
+import getfingers
+
 
 class ForceIndicator(Widget):
     mvc = NumericProperty(0)
@@ -65,7 +67,8 @@ class ForceGame(Widget):
         self.time += dt
         self.timelog.append(self.time)
 
-        forces = [int((math.sin(self.time) + 1) * 512)] * 5  # Replace this bit to get force
+        # forces = [int((math.sin(self.time) + 1) * 512)] * 5  # Replace this bit to get force
+        forces = getfingers.getforces()
 
         self.forcelog.append(forces)
         # Get the minimum forces recorded (baseline relaxed hand state)

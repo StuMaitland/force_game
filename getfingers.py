@@ -5,7 +5,7 @@ global port
 
 def init():
     global port
-    port = serial.Serial("/dev/ttyAMA0", baudrate=38400, timeout=0.01)
+    port = serial.Serial("/dev/ttyS0", baudrate=38400, timeout=0.01)
 
 
 def getforces():
