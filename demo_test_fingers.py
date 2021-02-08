@@ -63,6 +63,8 @@ class ForceGame(Widget):
     timelog = []
     forcelog = []
 
+    getfingers.init()
+
     def update(self, dt):
         self.time += dt
         self.timelog.append(self.time)
