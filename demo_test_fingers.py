@@ -46,14 +46,12 @@ class ForceGame(Widget):
     digit2 = ObjectProperty(None)
     digit3 = ObjectProperty(None)
     digit4 = ObjectProperty(None)
-    digit5 = ObjectProperty(None)
 
     max0 = ObjectProperty(None)
     max1 = ObjectProperty(None)
     max2 = ObjectProperty(None)
     max3 = ObjectProperty(None)
     max4 = ObjectProperty(None)
-    max5 = ObjectProperty(None)
 
     target_ind = ObjectProperty(None)
 
@@ -64,8 +62,6 @@ class ForceGame(Widget):
     mins = [0] * 5
     timelog = []
     forcelog = []
-
-    getfingers.init()
 
     def update(self, dt):
         self.time += dt
@@ -84,7 +80,6 @@ class ForceGame(Widget):
             self.digit2.move(forces[2])
             self.digit3.move(forces[3])
             self.digit4.move(forces[4])
-            self.digit5.move(forces[0])
 
         # Get MVCs
         if 10 < self.time < 20:
@@ -95,7 +90,6 @@ class ForceGame(Widget):
             self.max2.move(self.mvc[2])
             self.max3.move(self.mvc[3])
             self.max4.move(self.mvc[4])
-            self.max5.move(self.mvc[5])
 
         # Perform task
         if 20 < self.time < 90:
@@ -121,7 +115,6 @@ class ForceGame(Widget):
             self.digit2.move(forces[2])
             self.digit3.move(forces[3])
             self.digit4.move(forces[4])
-            self.digit5.move(forces[0])
 
         if self.time > 60:
             with open('{}.txt'.format(datetime.now()), mode='w') as f:
