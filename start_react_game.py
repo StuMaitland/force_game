@@ -2,7 +2,7 @@ import startreactreach
 import random
 import time
 import csv
-import datetime
+from datetime import datetime
 
 startreactreach.init()
 startreactreach.target(-1)
