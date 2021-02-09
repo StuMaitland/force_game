@@ -15,7 +15,7 @@ while i < 10:
     i += 1
     btn_state = 0
     time.sleep(1)
-    trial = random.choices([0, 1, 2], [0.33, 0.33, 0.33])
+    trial = random.choices([0, 1, 2], [0.33, 0.33, 0.33])[0]
     startreactreach.dostartreact(trial)
     time_a = time.time()
     while btn_state:
