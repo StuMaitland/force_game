@@ -15,7 +15,7 @@ while i < 10:
     i += 1
     btn_state = 0
     time.sleep(1)
-    trial = random.randint(0, 2)
+    trial = random.choices([0, 1, 2], [0.33, 0.33, 0.33])
     startreactreach.dostartreact(trial)
     time_a = time.time()
     while btn_state:
@@ -29,5 +29,5 @@ while i < 10:
 with open('start_react_{}.txt'.format(datetime.now()), mode='w') as f:
     writer = csv.writer(f)
     for k, v in enumerate(response_times):
-        writer.writerow([trial_types[k]] + response_times[k])
+        writer.writerow([trial_types[k], response_times[k]])
 
