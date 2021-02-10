@@ -15,6 +15,8 @@ event_times = []
 reaction_times = []
 button_indices = []
 
+startreactreach.init()
+
 camera = PiCamera()
 camera.resolution = (1280, 720)
 camera.start_recording('target_reach_{}.h264'.format(datetime.now()))
