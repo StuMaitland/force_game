@@ -13,14 +13,14 @@ i = 0
 
 while i < 10:
     i += 1
-    btn_state = 0
+    btn_state = 1
     time.sleep(1)
     trial = random.choices([0, 1, 2], [0.33, 0.33, 0.33])[0]
     startreactreach.dostartreact(trial)
     time_a = time.time()
     while btn_state:
         btn_val = startreactreach.button()
-        btn_state = btn_val != b'\x1f'
+        btn_state = btn_val == b'\x1f'
     startreactreach.target(-1)
     time_b = time.time()
     response_times.append(time_b - time_a)
