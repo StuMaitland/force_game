@@ -84,7 +84,7 @@ class ForceGame(Widget):
             self.digit4.move(forces[4])
 
         # Get MVCs
-        if 10 < self.time < 70:
+        if 10 < self.time < 20:
             self.instruction = 'PUSH PUSH PUSH'
             self.mvc = list(map(max, forces, self.mvc))
             self.max0.move(self.mvc[0])
@@ -94,7 +94,7 @@ class ForceGame(Widget):
             self.max4.move(self.mvc[4])
 
         # Perform task
-        if 70 < self.time < 900:  # Edit this to increase experiment duration to match needs
+        if self.time > 20:
             self.instruction = 'Push your finger to \n match the target'
             self.phase_time += dt
             # Hide the indicator for n seconds, show for m seconds
@@ -117,16 +117,6 @@ class ForceGame(Widget):
             self.digit2.move(forces[2])
             self.digit3.move(forces[3])
             self.digit4.move(forces[4])
-
-        if self.time > 900:
-            with open('{}.txt'.format(datetime.now()), mode='w') as f:
-                writer = csv.writer(f)
-                writer.writerow(self.mins)
-                writer.writerow(self.mvc)
-                for k, v in enumerate(self.timelog):
-                    writer.writerow([self.timelog[k]] + self.forcelog[k])
-            Clock.unschedule(print)
-            quit()
 
 
 class ForceApp(App):
