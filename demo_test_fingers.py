@@ -20,9 +20,13 @@ import getfingers
 class ForceIndicator(Widget):
     mvc = NumericProperty(0)
 
-    def move(self, force):
+    def move(self, force, digit,left_mode):
         window_width, window_height = Window.size
         self.center_y = window_height * (force / 1024)
+        if left_mode:
+            self.x = 300 - (50 * digit)
+        else:
+            self.x = 100 + (50 * digit)
 
 
 class MaxIndicator(ForceIndicator):
@@ -31,13 +35,16 @@ class MaxIndicator(ForceIndicator):
 
 class TargetIndicator(Widget):
 
-    def move(self, force, digit):
+    def move(self, force, digit, left_mode):
         window_width, window_height = Window.size
         self.center_y = window_height * (force / 1024)
-        self.x = 100 + (50 * digit)
+        if left_mode:
+            self.x = 300 - (50 * digit)
+        else:
+            self.x = 100 + (50 * digit)
 
 
-class ForceGame(Widget):
+class ForceGame(Widget, left_mode=False):
     time = NumericProperty(0)
     phase_time = NumericProperty(0)
 
@@ -77,21 +84,21 @@ class ForceGame(Widget):
         if self.time < 10:
             forces = [0] * 5  # Remove this
             self.mins = list(map(min, forces, self.mins))
-            self.digit0.move(forces[0])
-            self.digit1.move(forces[1])
-            self.digit2.move(forces[2])
-            self.digit3.move(forces[3])
-            self.digit4.move(forces[4])
+            self.digit0.move(forces[0], 0)
+            self.digit1.move(forces[1], 1)
+            self.digit2.move(forces[2], 2)
+            self.digit3.move(forces[3], 3)
+            self.digit4.move(forces[4], 4)
 
         # Get MVCs
         if 10 < self.time < 70:
             self.instruction = 'PUSH PUSH PUSH'
             self.mvc = list(map(max, forces, self.mvc))
-            self.max0.move(self.mvc[0])
-            self.max1.move(self.mvc[1])
-            self.max2.move(self.mvc[2])
-            self.max3.move(self.mvc[3])
-            self.max4.move(self.mvc[4])
+            self.max0.move(self.mvc[0], 0)
+            self.max1.move(self.mvc[1], 1)
+            self.max2.move(self.mvc[2], 2)
+            self.max3.move(self.mvc[3], 3)
+            self.max4.move(self.mvc[4], 4)
 
         # Perform task
         if 70 < self.time < 900:  # Edit this to increase experiment duration to match needs
