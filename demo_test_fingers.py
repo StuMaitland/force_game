@@ -119,11 +119,11 @@ class ForceGame(Widget, left_mode=False):
                     self.target_ind.height = 0
                     self.pause_flag = True
             # Move the graphics
-            self.digit0.move(forces[0], self.left_mode)
-            self.digit1.move(forces[1], self.left_mode)
-            self.digit2.move(forces[2], self.left_mode)
-            self.digit3.move(forces[3], self.left_mode)
-            self.digit4.move(forces[4], self.left_mode)
+            self.digit0.move(forces[0], 0, self.left_mode)
+            self.digit1.move(forces[1], 1, self.left_mode)
+            self.digit2.move(forces[2], 2, self.left_mode)
+            self.digit3.move(forces[3], 3, self.left_mode)
+            self.digit4.move(forces[4], 4, self.left_mode)
 
         if self.time > 900:
             with open('{}.txt'.format(datetime.now()), mode='w') as f:
