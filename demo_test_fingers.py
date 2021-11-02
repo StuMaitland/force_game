@@ -24,7 +24,7 @@ class ForceIndicator(Widget):
         window_width, window_height = Window.size
         self.center_y = window_height * (force / 1024)
         if left_mode == True and digit == 0:
-            self.x = 300 - (50 * digit)
+            self.x = 350 - (50 * digit)
         else:
             self.x = 100 + (50 * digit)
 
@@ -39,7 +39,7 @@ class TargetIndicator(Widget):
         window_width, window_height = Window.size
         self.center_y = window_height * (force / 1024)
         if left_mode == True and digit == 0:
-            self.x = 300 - (50 * digit)
+            self.x = 350 - (50 * digit)
         else:
             self.x = 100 + (50 * digit)
 
