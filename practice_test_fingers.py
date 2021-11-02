@@ -84,21 +84,21 @@ class ForceGame(Widget, left_mode=False):
         if self.time < 10:
             forces = [0] * 5  # Remove this
             self.mins = list(map(min, forces, self.mins))
-            self.digit0.move(forces[0])
-            self.digit1.move(forces[1])
-            self.digit2.move(forces[2])
-            self.digit3.move(forces[3])
-            self.digit4.move(forces[4])
+            self.digit0.move(forces[0], self.left_mode)
+            self.digit1.move(forces[1], self.left_mode)
+            self.digit2.move(forces[2], self.left_mode)
+            self.digit3.move(forces[3], self.left_mode)
+            self.digit4.move(forces[4], self.left_mode)
 
         # Get MVCs
         if 10 < self.time < 20:
             self.instruction = 'PUSH PUSH PUSH'
             self.mvc = list(map(max, forces, self.mvc))
-            self.max0.move(self.mvc[0])
-            self.max1.move(self.mvc[1])
-            self.max2.move(self.mvc[2])
-            self.max3.move(self.mvc[3])
-            self.max4.move(self.mvc[4])
+            self.max0.move(self.mvc[0], self.left_mode)
+            self.max1.move(self.mvc[1], self.left_mode)
+            self.max2.move(self.mvc[2], self.left_mode)
+            self.max3.move(self.mvc[3], self.left_mode)
+            self.max4.move(self.mvc[4], self.left_mode)
 
         # Perform task
         if self.time > 20:
@@ -119,11 +119,11 @@ class ForceGame(Widget, left_mode=False):
                     self.target_ind.height = 0
                     self.pause_flag = True
             # Move the graphics
-            self.digit0.move(forces[0])
-            self.digit1.move(forces[1])
-            self.digit2.move(forces[2])
-            self.digit3.move(forces[3])
-            self.digit4.move(forces[4])
+            self.digit0.move(forces[0], self.left_mode)
+            self.digit1.move(forces[1], self.left_mode)
+            self.digit2.move(forces[2], self.left_mode)
+            self.digit3.move(forces[3], self.left_mode)
+            self.digit4.move(forces[4], self.left_mode)
 
 
 class ForceApp(App):
