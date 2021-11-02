@@ -20,9 +20,13 @@ import getfingers
 class ForceIndicator(Widget):
     mvc = NumericProperty(0)
 
-    def move(self, force):
+    def move(self, force, digit, left_mode):
         window_width, window_height = Window.size
         self.center_y = window_height * (force / 1024)
+        if left_mode == True and digit == 0:
+            self.x = 300 - (50 * digit)
+        else:
+            self.x = 100 + (50 * digit)
 
 
 class MaxIndicator(ForceIndicator):
@@ -31,13 +35,16 @@ class MaxIndicator(ForceIndicator):
 
 class TargetIndicator(Widget):
 
-    def move(self, force, digit):
+    def move(self, force, digit, left_mode):
         window_width, window_height = Window.size
         self.center_y = window_height * (force / 1024)
-        self.x = 100 + (50 * digit)
+        if left_mode == True and digit == 0:
+            self.x = 300 - (50 * digit)
+        else:
+            self.x = 100 + (50 * digit)
 
 
-class ForceGame(Widget):
+class ForceGame(Widget, left_mode=False):
     time = NumericProperty(0)
     phase_time = NumericProperty(0)
 
