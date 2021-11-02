@@ -44,7 +44,8 @@ class TargetIndicator(Widget):
             self.x = 100 + (50 * digit)
 
 
-class ForceGame(Widget, left_mode=False):
+class ForceGame(Widget):
+    left_mode = False
     time = NumericProperty(0)
     phase_time = NumericProperty(0)
 
@@ -111,7 +112,7 @@ class ForceGame(Widget, left_mode=False):
                     self.target_ind.height = 25
                     digit = random.randint(0, 4)
                     mvc_target = random.randrange(self.mins[digit], self.mvc[digit])
-                    self.target_ind.move(mvc_target, digit)
+                    self.target_ind.move(mvc_target, digit, self.left_mode)
                     self.pause_flag = False
             else:
                 if self.phase_time > 10:
