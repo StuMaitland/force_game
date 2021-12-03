@@ -65,17 +65,23 @@ class ForceGame(Widget):
 
     instruction = ObjectProperty('Relax your hand')
 
+    digit = -1
     pause_flag = False
     mvc = [1] * 5
     mins = [0] * 5
     timelog = []
     forcelog = []
+    digitlog = []
+    targetlog = []
+    mvctarget=0
 
     getfingers.init()
 
     def update(self, dt):
         self.time += dt
         self.timelog.append(self.time)
+        self.digitlog.append(self.digit)
+        self.targetlog.append(self.mvctarget)
 
         # forces = [int((math.sin(self.time) + 1) * 512)] * 5  # Replace this bit to get force
         forces = getfingers.getforces()
@@ -111,11 +117,12 @@ class ForceGame(Widget):
                     self.phase_time = 0
                     self.target_ind.height = 25
                     digit = random.randint(0, 4)
-                    mvc_target = random.randrange(self.mins[digit], self.mvc[digit])
-                    self.target_ind.move(mvc_target, digit, self.left_mode)
+                    self.mvc_target = random.randrange(self.mins[digit], self.mvc[digit])
+                    self.target_ind.move(self.mvc_target, digit, self.left_mode)
                     self.pause_flag = False
             else:
                 if self.phase_time > 10:
+                    self.digit = -1
                     self.phase_time = 0
                     self.target_ind.height = 0
                     self.pause_flag = True
@@ -132,7 +139,7 @@ class ForceGame(Widget):
                 writer.writerow(self.mins)
                 writer.writerow(self.mvc)
                 for k, v in enumerate(self.timelog):
-                    writer.writerow([self.timelog[k]] + self.forcelog[k])
+                    writer.writerow(self.digitlog[k] + self.targetlog[k] + self.timelog[k] + self.forcelog[k])
             Clock.unschedule(print)
             quit()
 
