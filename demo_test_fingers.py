@@ -99,7 +99,7 @@ class ForceGame(Widget):
 
         # Get MVCs
         if 10 < self.time < 70:
-            self.instruction = 'PUSH PUSH PUSH'
+            self.instruction = 'PUSH PUSH /n PUSH PUSH'
             self.mvc = list(map(max, forces, self.mvc))
             self.max0.move(self.mvc[0], 0, self.left_mode)
             self.max1.move(self.mvc[1], 1, self.left_mode)
@@ -116,9 +116,9 @@ class ForceGame(Widget):
                 if self.phase_time > 2:
                     self.phase_time = 0
                     self.target_ind.height = 25
-                    digit = random.randint(0, 4)
-                    self.mvc_target = random.randrange(self.mins[digit], self.mvc[digit])
-                    self.target_ind.move(self.mvc_target, digit, self.left_mode)
+                    self.digit = random.randint(0, 4)
+                    self.mvc_target = random.randrange(self.mins[self.digit], self.mvc[self.digit])
+                    self.target_ind.move(self.mvc_target, self.digit, self.left_mode)
                     self.pause_flag = False
             else:
                 if self.phase_time > 10:
@@ -139,7 +139,9 @@ class ForceGame(Widget):
                 writer.writerow(self.mins)
                 writer.writerow(self.mvc)
                 for k, v in enumerate(self.timelog):
-                    writer.writerow(self.digitlog[k] + self.targetlog[k] + self.timelog[k] + self.forcelog[k])
+                    rowstring = [self.digitlog[k] + self.targetlog[k] + self.timelog[k]] + self.forcelog[k]
+                    print(rowstring)
+                    writer.writerow(rowstring)
             Clock.unschedule(print)
             quit()
 
