@@ -65,7 +65,7 @@ class ForceGame(Widget):
 
     instruction = ObjectProperty('Relax your hand')
 
-    digit = -1
+    digit = NumericProperty(-1)
     pause_flag = False
     mvc = [1] * 5
     mins = [0] * 5
@@ -73,7 +73,7 @@ class ForceGame(Widget):
     forcelog = []
     digitlog = []
     targetlog = []
-    mvctarget=0
+    mvctarget = NumericProperty(0)
 
     getfingers.init()
 
