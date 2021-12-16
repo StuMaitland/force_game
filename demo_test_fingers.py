@@ -99,7 +99,7 @@ class ForceGame(Widget):
 
         # Get MVCs
         if 10 < self.time < 70:
-            self.instruction = 'PUSH PUSH /n PUSH PUSH'
+            self.instruction = 'PUSH PUSH \n PUSH PUSH'
             self.mvc = list(map(max, forces, self.mvc))
             self.max0.move(self.mvc[0], 0, self.left_mode)
             self.max1.move(self.mvc[1], 1, self.left_mode)
@@ -139,7 +139,7 @@ class ForceGame(Widget):
                 writer.writerow(self.mins)
                 writer.writerow(self.mvc)
                 for k, v in enumerate(self.timelog):
-                    rowstring = [self.digitlog[k] + self.targetlog[k] + self.timelog[k]] + self.forcelog[k]
+                    rowstring = [self.digitlog[k]] + [self.targetlog[k]] + [self.timelog[k]] + self.forcelog[k]
                     print(rowstring)
                     writer.writerow(rowstring)
             Clock.unschedule(print)
