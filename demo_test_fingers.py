@@ -91,7 +91,7 @@ class ForceGame(Widget):
         self.time += dt
         self.timelog.append(self.time)
         self.digitlog.append(self.digit)
-        self.targetlog.append(self.mvctarget)
+        target_log.append(self.mvctarget)
 
         # forces = [int((math.sin(self.time) + 1) * 512)] * 5  # Replace this bit to get force
         forces = getfingers.getforces()
@@ -151,11 +151,12 @@ class ForceGame(Widget):
                 writer.writerow(self.mins)
                 writer.writerow(self.mvc)
                 for k, v in enumerate(self.timelog):
-                    rowstring = [self.digitlog[k]] + [self.targetlog[k]] + [self.timelog[k]] + self.forcelog[k]
+                    rowstring = [self.digitlog[k]] + [target_log[k]] + [self.timelog[k]] + self.forcelog[k]
                     writer.writerow(rowstring)
             Clock.unschedule(print)
             quit()
 
+target_log=[]
 
 class ForceApp(App):
     def build(self):
