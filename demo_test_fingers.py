@@ -79,7 +79,7 @@ class ForceGame(Widget):
     forcelog = []
     digitlog = []
     targetlog = []
-    mvctarget = 0
+    mvctarget = NumericProperty(0)
 
     digit_targets = list(range(0, 5)) * num_trials
     digit_targets = np.random.permutation(digit_targets)
