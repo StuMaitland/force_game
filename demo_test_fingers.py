@@ -13,6 +13,7 @@ import math
 import random
 import csv
 from datetime import datetime
+import numpy as np
 
 import getfingers
 
@@ -45,6 +46,11 @@ class TargetIndicator(Widget):
 
 
 class ForceGame(Widget):
+    # !!!!!!Edit these variables to change the experiment
+    num_trials = 5  # Number of trials *per digit*
+    debug=10 #Debug mode to reduce time intervals for faster debugging
+
+    # Other variables
     left_mode = False
     time = NumericProperty(0)
     phase_time = NumericProperty(0)
@@ -73,7 +79,11 @@ class ForceGame(Widget):
     forcelog = []
     digitlog = []
     targetlog = []
-    mvctarget = NumericProperty(0)
+    mvctarget = 0
+
+    digit_targets = list(range(0, 5)) * num_trials
+    digit_targets = np.random.permutation(digit_targets)
+    trial_index = NumericProperty(0)
 
     getfingers.init()
 
@@ -88,7 +98,7 @@ class ForceGame(Widget):
 
         self.forcelog.append(forces)
         # Get the minimum forces recorded (baseline relaxed hand state)
-        if self.time < 10:
+        if self.time < 10/self.debug:
             forces = [0] * 5  # Remove this
             self.mins = list(map(min, forces, self.mins))
             self.digit0.move(forces[0], 0, self.left_mode)
@@ -98,7 +108,7 @@ class ForceGame(Widget):
             self.digit4.move(forces[4], 4, self.left_mode)
 
         # Get MVCs
-        if 10 < self.time < 70:
+        if 10/self.debug < self.time < 70/self.debug:
             self.instruction = 'PUSH PUSH \n PUSH PUSH'
             self.mvc = list(map(max, forces, self.mvc))
             self.max0.move(self.mvc[0], 0, self.left_mode)
@@ -108,7 +118,7 @@ class ForceGame(Widget):
             self.max4.move(self.mvc[4], 4, self.left_mode)
 
         # Perform task
-        if 70 < self.time < 900:  # Edit this to increase experiment duration to match needs
+        if 70/self.debug < self.time:  # Edit this to increase experiment duration to match needs
             self.instruction = 'Push your finger to \n match the target'
             self.phase_time += dt
             # Hide the indicator for n seconds, show for m seconds
@@ -116,10 +126,11 @@ class ForceGame(Widget):
                 if self.phase_time > 2:
                     self.phase_time = 0
                     self.target_ind.height = 25
-                    self.digit = random.randint(0, 4)
+                    self.digit = self.digit_targets[self.trial_index]
                     self.mvc_target = random.randrange(self.mins[self.digit], self.mvc[self.digit])
                     self.target_ind.move(self.mvc_target, self.digit, self.left_mode)
                     self.pause_flag = False
+                    self.trial_index += 1
             else:
                 if self.phase_time > 10:
                     self.digit = -1
@@ -133,7 +144,8 @@ class ForceGame(Widget):
             self.digit3.move(forces[3], 3, self.left_mode)
             self.digit4.move(forces[4], 4, self.left_mode)
 
-        if self.time > 900:
+        if self.trial_index > self.num_trials * 5:
+            print(self.targetlog)
             with open('{}.txt'.format(datetime.now()), mode='w') as f:
                 writer = csv.writer(f)
                 writer.writerow(self.mins)
