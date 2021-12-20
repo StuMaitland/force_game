@@ -117,6 +117,8 @@ class ForceGame(Widget):
             self.max3.move(self.mvc[3], 3, self.left_mode)
             self.max4.move(self.mvc[4], 4, self.left_mode)
 
+        if self.debug > 1:
+            self.mvc = [100]*5
         # Perform task
         if 70/self.debug < self.time:  # Edit this to increase experiment duration to match needs
             self.instruction = 'Push your finger to \n match the target'
