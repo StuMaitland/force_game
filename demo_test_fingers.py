@@ -47,11 +47,11 @@ class TargetIndicator(Widget):
 
 class ForceGame(Widget):
     # !!!!!!Edit these variables to change the experiment
-    num_trials = 5  # Number of trials *per digit*
-    debug=10 #Debug mode to reduce time intervals for faster debugging
-
-    # Other variables
+    num_trials = 1  # Number of trials *per digit*
+    debug = 10  # Debug mode to reduce time intervals for faster debugging
     left_mode = False
+    # Other variables
+
     time = NumericProperty(0)
     phase_time = NumericProperty(0)
 
@@ -91,14 +91,14 @@ class ForceGame(Widget):
         self.time += dt
         self.timelog.append(self.time)
         self.digitlog.append(self.digit)
-        target_log.append(self.mvctarget)
+        self.targetlog.append(self.mvctarget)
 
         # forces = [int((math.sin(self.time) + 1) * 512)] * 5  # Replace this bit to get force
         forces = getfingers.getforces()
 
         self.forcelog.append(forces)
         # Get the minimum forces recorded (baseline relaxed hand state)
-        if self.time < 10/self.debug:
+        if self.time < 10 / self.debug:
             forces = [0] * 5  # Remove this
             self.mins = list(map(min, forces, self.mins))
             self.digit0.move(forces[0], 0, self.left_mode)
@@ -108,7 +108,7 @@ class ForceGame(Widget):
             self.digit4.move(forces[4], 4, self.left_mode)
 
         # Get MVCs
-        if 10/self.debug < self.time < 70/self.debug:
+        if 10 / self.debug < self.time < 70 / self.debug:
             self.instruction = 'PUSH PUSH \n PUSH PUSH'
             self.mvc = list(map(max, forces, self.mvc))
             self.max0.move(self.mvc[0], 0, self.left_mode)
@@ -118,9 +118,9 @@ class ForceGame(Widget):
             self.max4.move(self.mvc[4], 4, self.left_mode)
 
         if self.debug > 1:
-            self.mvc = [100]*5
+            self.mvc = [100] * 5
         # Perform task
-        if 70/self.debug < self.time:  # Edit this to increase experiment duration to match needs
+        if 70 / self.debug < self.time:  # Edit this to increase experiment duration to match needs
             self.instruction = 'Push your finger to \n match the target'
             self.phase_time += dt
             # Hide the indicator for n seconds, show for m seconds
@@ -130,6 +130,7 @@ class ForceGame(Widget):
                     self.target_ind.height = 25
                     self.digit = int(self.digit_targets[self.trial_index])
                     self.mvc_target = random.randrange(self.mins[self.digit], self.mvc[self.digit])
+                    print(self.mvc_target)
                     self.target_ind.move(self.mvc_target, self.digit, self.left_mode)
                     self.pause_flag = False
                     self.trial_index += 1
@@ -158,7 +159,9 @@ class ForceGame(Widget):
             Clock.unschedule(print)
             quit()
 
-target_log=[]
+
+target_log = []
+
 
 class ForceApp(App):
     def build(self):
