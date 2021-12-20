@@ -126,7 +126,7 @@ class ForceGame(Widget):
                 if self.phase_time > 2:
                     self.phase_time = 0
                     self.target_ind.height = 25
-                    self.digit = self.digit_targets[self.trial_index]
+                    self.digit = int(self.digit_targets[self.trial_index])
                     self.mvc_target = random.randrange(self.mins[self.digit], self.mvc[self.digit])
                     self.target_ind.move(self.mvc_target, self.digit, self.left_mode)
                     self.pause_flag = False
@@ -144,7 +144,7 @@ class ForceGame(Widget):
             self.digit3.move(forces[3], 3, self.left_mode)
             self.digit4.move(forces[4], 4, self.left_mode)
 
-        if self.trial_index > self.num_trials * 5:
+        if self.trial_index >= self.num_trials * 5:
             print(self.targetlog)
             with open('{}.txt'.format(datetime.now()), mode='w') as f:
                 writer = csv.writer(f)
