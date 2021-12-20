@@ -79,7 +79,7 @@ class ForceGame(Widget):
     forcelog = []
     digitlog = []
     targetlog = []
-    mvctarget = NumericProperty(0)
+    mvctarget = 0
 
     digit_targets = list(range(0, 5)) * num_trials
     digit_targets = np.random.permutation(digit_targets)
@@ -129,13 +129,14 @@ class ForceGame(Widget):
                     self.phase_time = 0
                     self.target_ind.height = 25
                     self.digit = int(self.digit_targets[self.trial_index])
-                    self.mvc_target = random.randrange(self.mins[self.digit], self.mvc[self.digit])
+                    self.mvc_target = int(random.randrange(self.mins[self.digit], self.mvc[self.digit]))
                     print(self.mvc_target)
                     self.target_ind.move(self.mvc_target, self.digit, self.left_mode)
                     self.pause_flag = False
                     self.trial_index += 1
             else:
                 if self.phase_time > 10:
+                    self.mvc_target = 0
                     self.digit = -1
                     self.phase_time = 0
                     self.target_ind.height = 0
