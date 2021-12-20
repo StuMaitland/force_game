@@ -152,7 +152,6 @@ class ForceGame(Widget):
                 writer.writerow(self.mvc)
                 for k, v in enumerate(self.timelog):
                     rowstring = [self.digitlog[k]] + [self.targetlog[k]] + [self.timelog[k]] + self.forcelog[k]
-                    print(rowstring)
                     writer.writerow(rowstring)
             Clock.unschedule(print)
             quit()
